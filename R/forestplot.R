@@ -188,15 +188,15 @@ forestplot <- function(df,
     )
 
   # Exponentiate the estimates and CIs if logodds
-  if (logodds) {
-    df <-
-      df %>%
-      mutate(
-        .xmin = exp(.data$.xmin),
-        .xmax = exp(.data$.xmax),
-        !!estimate := exp(!!estimate)
-      )
-  }
+  # if (logodds) {
+  #   df <-
+  #     df %>%
+  #     mutate(
+  #       .xmin = exp(.data$.xmin),
+  #       .xmax = exp(.data$.xmax),
+  #       !!estimate := exp(!!estimate)
+  #     )
+  # }
 
   # If pvalue provided, adjust .filled variable
   if (!quo_is_null(pvalue)) {
