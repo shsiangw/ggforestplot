@@ -116,6 +116,8 @@ insulin resistance (HOMA-IR), fasting glucose and Body Mass Index (BMI).
 ```{r}
 # Load tidyverse and ggforestplot
 # install.packages("tidyverse")
+# install.packages("dplyr")
+library(dplyr)
 library(tidyverse)
 library(ggforestplot)
 
