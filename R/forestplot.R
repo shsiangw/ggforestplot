@@ -136,6 +136,7 @@ forestplot <- function(df,
                        colour = NULL,
                        shape = NULL,
                        logodds = FALSE,
+                       one = FALSE,
                        psignif = 0.05,
                        psignif_colour = NULL,
                        ci = 0.95,
@@ -215,15 +216,16 @@ forestplot <- function(df,
     )
 
   # Exponentiate the estimates and CIs if logodds
-  # if (logodds) {
-  #   df <-
-  #     df %>%
-  #     mutate(
-  #       .xmin = exp(.data$.xmin),
-  #       .xmax = exp(.data$.xmax),
-  #       !!estimate := exp(!!estimate)
-  #     )
-  # }
+  if (logodds) {
+    df <-
+      df %>%
+      mutate(
+        .xmin = exp(.data$.xmin),
+        .xmax = exp(.data$.xmax),
+        !!estimate := exp(!!estimate)
+      )
+    one = TRUE
+  }
 
   # If pvalue provided, adjust .filled variable
   if (!quo_is_null(pvalue)) {
@@ -278,7 +280,7 @@ forestplot <- function(df,
     geom_stripes() +
     # Add vertical line at null point
     geom_vline(
-      xintercept = ifelse(test = logodds, yes = 1, no = 0),
+      xintercept = ifelse(test = one, yes = 1, no = 0),
       linetype = "solid",
       size = 0.4,
       colour = "black"
