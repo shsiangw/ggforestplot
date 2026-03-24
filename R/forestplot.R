@@ -302,7 +302,8 @@ forestplot <- function(df,
       shape = guide_legend(reverse = TRUE)
     ) +
     scale_color_manual(values = c("sig"  = psignif_colour[2], 
-                                  "nonsig" = psignif_colour[1]))
+                                  "nonsig" = psignif_colour[1])) + 
+    guides(colour = "none")
   
   # Limits adjustment
   #
