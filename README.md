@@ -10,7 +10,8 @@ devtools::install_github("NightingaleHealth/ggforestplot")
 This fork introduces **3 additional options** to improve plot customization:
 
   1. Reference Line at 1 (Without Exponentiation)
-  Set the reference line at 1 without exponentiating the estimates or confidence intervals.
+
+     Set the reference line at 1 without exponentiating the estimates or confidence intervals.
 
 ```r
 forestplot(
@@ -21,8 +22,8 @@ forestplot(
 ```
 
   2. Custom Confidence Intervals
-  
-  Provide pre-computed confidence intervals instead of relying on `ggforestplot` calculation.
+
+     Provide pre-computed confidence intervals instead of relying on `ggforestplot` calculation.
 
 ```r
 forestplot(
@@ -34,8 +35,8 @@ forestplot(
 ```
 
   3. Highlight Significant Results
-  
-  Display statistically significant estimates using a different color for points and error bars.
+
+     Display statistically significant estimates using a different color for points and error bars.
 
 ```r
 forestplot(
