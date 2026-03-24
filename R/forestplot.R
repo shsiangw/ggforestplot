@@ -231,8 +231,7 @@ forestplot <- function(df,
     
     if(!is.null(psignif_colour)){
       df %>%
-      dplyr::mutate(pinsignif_colour = .colour,
-                    .colour = as.character(.filled))
+      dplyr::mutate(.colour = as.character(.filled))
     }
   }
 
@@ -301,8 +300,8 @@ forestplot <- function(df,
       colour = guide_legend(reverse = TRUE),
       shape = guide_legend(reverse = TRUE)
     ) +
-    scale_color_manual(values = c("TRUE"  = psignif_colour, 
-                                  "FALSE" = pinsignif_colour))
+    scale_color_manual(values = c("TRUE"  = psignif_colour[2], 
+                                  "FALSE" = psignif_colour[1]))
   
   # Limits adjustment
   #
