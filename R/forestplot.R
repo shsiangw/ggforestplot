@@ -228,6 +228,12 @@ forestplot <- function(df,
     df <-
       df %>%
       dplyr::mutate(.filled = !!pvalue < !!psignif)
+    
+    if(!is.null(psignif_colour)){
+      df %>%
+      dplyr::mutate(pinsignif_colour = .colour,
+                    .colour = as.character(.filled))
+    }
   }
 
   # Plot
@@ -294,15 +300,9 @@ forestplot <- function(df,
     guides(
       colour = guide_legend(reverse = TRUE),
       shape = guide_legend(reverse = TRUE)
-    )
-
-  # significant will change the points and error bar color
-  if (!quo_is_null(pvalue) & !is.null(psignif_colour)) {
-    g <- g + scale_color_manual(values = c("Significant" = psignif_colour, "Non-significant" = colour))
-    g <- g + scale_fill_manual(values = c("Significant" = psignif_colour, "Non-significant" = colour))
-  } else {
-    g <- g + scale_colour_ng_d() + scale_fill_ng_d()
-  }
+    ) +
+    scale_color_manual(values = c("TRUE"  = psignif_colour, 
+                                  "FALSE" = pinsignif_colour))
   
   # Limits adjustment
   #
