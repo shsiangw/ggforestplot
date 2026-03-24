@@ -137,6 +137,7 @@ forestplot <- function(df,
                        shape = NULL,
                        logodds = FALSE,
                        psignif = 0.05,
+                       psignif_colour = NULL,
                        ci = 0.95,
                        ci_upper = NULL, 
                        ci_lower = NULL,
@@ -295,6 +296,14 @@ forestplot <- function(df,
       shape = guide_legend(reverse = TRUE)
     )
 
+  # significant will change the points and error bar color
+  if (!quo_is_null(pvalue) & !is.null(psignif_colour)) {
+    g <- g + scale_color_manual(values = c("Significant" = psignif_colour, "Non-significant" = colour))
+    g <- g + scale_fill_manual(values = c("Significant" = psignif_colour, "Non-significant" = colour))
+  } else {
+    g <- g + scale_colour_ng_d() + scale_fill_ng_d()
+  }
+  
   # Limits adjustment
   #
   # # Extend the shorter x-axis side to mirror the longer one
