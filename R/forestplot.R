@@ -251,7 +251,7 @@ forestplot <- function(df,
     )
 
   # If logodds, adjust axis scale
-  if (logodds) {
+  if (one) {
     if ("xtickbreaks" %in% names(args)) {
       g <-
         g +
