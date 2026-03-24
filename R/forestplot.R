@@ -138,6 +138,8 @@ forestplot <- function(df,
                        logodds = FALSE,
                        psignif = 0.05,
                        ci = 0.95,
+                       ci_upper = NULL, 
+                       ci_lower = NULL,
                        ...) {
 
   # Input checks
@@ -165,7 +167,9 @@ forestplot <- function(df,
   # }
 
   # Estimate multiplication const for CI
-  const <- stats::qnorm(1 - (1 - ci) / 2)
+  if(is.null(ci_lower) & is.null(ci_upper)){
+    const <- stats::qnorm(1 - (1 - ci) / 2)
+  }
 
   # Adjust data frame variables
   df <-
@@ -176,10 +180,30 @@ forestplot <- function(df,
         !!name,
         levels = !!name %>% unique() %>% rev(),
         ordered = TRUE
-      ),
+      )
+    )
+    
+  if(is.null(ci_lower) & is.null(ci_upper)){
+    df <-
+      df %>%
+      mutate(
       # Added here to estimate xbreaks for log odds later
       .xmin = !!estimate - const * !!se,
-      .xmax = !!estimate + const * !!se,
+      .xmax = !!estimate + const * !!se
+      )
+  }else{
+    df <-
+      df %>%
+      mutate(
+        # Added here to estimate xbreaks for log odds later
+        .xmin = !!ci_lower,
+        .xmax = !!ci_upper
+      )
+  }
+  
+  df <- 
+    df %>%
+    mutate(
       # Add a logical variable with the info on whether points will be filled.
       # Defaults to TRUE.
       .filled = TRUE,
