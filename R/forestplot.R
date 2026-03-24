@@ -157,6 +157,8 @@ forestplot <- function(df,
   pvalue <- enquo(pvalue)
   colour <- enquo(colour)
   shape <- enquo(shape)
+  ci_upper <- enquo(ci_upper)
+  ci_lower <- enquo(ci_lower)
   
   args <- list(...)
 
