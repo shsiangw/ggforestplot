@@ -230,8 +230,9 @@ forestplot <- function(df,
       dplyr::mutate(.filled = !!pvalue < !!psignif)
     
     if(!is.null(psignif_colour)){
-      df %>%
-      dplyr::mutate(.colour = ifelse(!!pvalue < !!psignif, "sig", "nonsig"))
+      df <-
+        df %>%
+        dplyr::mutate(.colour = ifelse(!!pvalue < !!psignif, "sig", "nonsig"))
     }
   }
 
@@ -288,7 +289,7 @@ forestplot <- function(df,
       ggplot2::aes(
         xmin = .data$.xmin,
         xmax = .data$.xmax,
-        colour = !!colour,
+        colour = if (!is.null(psignif_colour)) .data$.colour else !!colour,
         shape = !!shape,
         filled = .data$.filled
       ),
